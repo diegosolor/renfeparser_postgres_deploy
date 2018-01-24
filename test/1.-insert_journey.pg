@@ -1,0 +1,22 @@
+
+BEGIN;
+    SELECT pgtap.plan(1);
+
+    INSERT INTO public.historico_trayectos(
+        origen, destino, fecha_salida, fecha_llegada, fecha_consulta, precio_euros)
+    VALUES ('Madrid', 'Santander', '20170101 0000', '20170101 0130', '20170101 0000', 30);
+
+
+    PREPARE test_1 AS 
+    SELECT origen, destino, fecha_salida, fecha_llegada, fecha_consulta, precio_euros
+    FROM public.historico_trayectos;
+
+    PREPARE valores_esperados_1 AS VALUES ('Madrid', 'Santander', 
+        '20170101 0000'::timestamp, 
+        '20170101 0130'::timestamp, 
+        '20170101 0000'::timestamp, 30);
+    SELECT set_eq( 'test_1','valores_esperados_1', 'Insercion básica de un trayecto');
+
+
+SELECT pgtap.finish();
+ROLLBACK;
