@@ -3,7 +3,7 @@
 /usr/pgsql-9.6/bin/pg_ctl -w start
 
 psql -U postgres -c "CREATE ROLE renfe WITH LOGIN PASSWORD 'renfe';"
-psql -U postgres -c "ALTER USER postgres PASSWORD 'meteologica001';"
+psql -U postgres -c "ALTER USER postgres PASSWORD 'renfe001';"
 
 psql -U postgres -c "CREATE DATABASE renfe WITH OWNER = renfe ENCODING = 'UTF8' CONNECTION LIMIT = -1;";
 
