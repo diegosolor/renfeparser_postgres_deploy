@@ -1,16 +1,14 @@
-FROM centos:centos7
+FROM arm32v7/debian
 
-RUN yum install -y  epel-release
-RUN yum install -y https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm
-RUN yum install -y postgresql96-server postgresql96-contrib postgresql96-plperl postgis2_96 pgtap96
-RUN yum install -y subversion
+RUN apt-get update
+RUN apt-get install -y postgresql-9.6 postgresql-9.6-pgtap
 
 ENV PGDATA /var/lib/pgsql/9.6/data 
 
 
 USER postgres
 
-RUN /usr/pgsql-9.6/bin/initdb -E UTF8
+RUN /usr/lib/postgresql/9.6/bin/initdb -E UTF8
 
 COPY scripts scripts
 COPY data /data
@@ -21,4 +19,4 @@ ENV BD_REVISION=104782
 ENV BD_HOST=db
 RUN sh scripts/dbsetup.sh
 
-CMD ["/usr/pgsql-9.6/bin/postgres"]
+CMD ["/usr/lib/postgresql/9.6/bin/postgres"]
