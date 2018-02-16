@@ -3,8 +3,10 @@ FROM arm32v7/debian
 RUN apt-get update
 RUN apt-get install -y postgresql-9.6 postgresql-9.6-pgtap
 
-ENV PGDATA /var/lib/pgsql/9.6/data 
+ENV PGDATA /var/pgsql/data 
 
+RUN mkdir -p /var/pgsql/data
+RUN chown postgres -R /var/pgsql
 
 USER postgres
 
